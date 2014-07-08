@@ -22,8 +22,6 @@ import java.util.SimpleTimeZone;
 public class CrimeFragment extends Fragment {
     private static final String TAG = "Fragment lifecycle";
 
-    private SimpleDateFormat dateFormat = new SimpleDateFormat("MMMM d, yyyy, h:mm a");
-
     private Crime crime;
     private EditText titleField;
     private Button dateButton;
@@ -65,7 +63,7 @@ public class CrimeFragment extends Fragment {
 
         dateButton = (Button) v.findViewById(R.id.crime_date);
 
-        dateButton.setText(dateFormat.format(crime.getDate()));
+        dateButton.setText(crime.getDateString());
         dateButton.setEnabled(false);
 
         solvedCheckBox = (CheckBox) v.findViewById(R.id.crime_solved);
