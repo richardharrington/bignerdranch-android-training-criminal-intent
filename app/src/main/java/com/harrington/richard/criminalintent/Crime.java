@@ -14,6 +14,11 @@ public class Crime {
         date = new Date();
     }
 
+    @Override
+    public String toString() {
+        return title;
+    }
+
     public void setTitle(String title) {
         this.title = title;
     }
