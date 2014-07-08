@@ -3,5 +3,8 @@
 
     <string name="app_name">CriminalIntent</string>
     <string name="crime_title_hint">Loyal member of the Stasi, what do you have for me today?</string>
+    <string name="crime_title_label">Title</string>
+    <string name="crime_details_label">Details</string>
+    <string name="crime_solved_label">Solved?</string>
 
 </resources>
