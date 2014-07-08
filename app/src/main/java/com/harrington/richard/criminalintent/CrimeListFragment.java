@@ -1,5 +1,6 @@
 package com.harrington.richard.criminalintent;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.util.Log;
@@ -13,7 +14,6 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 public class CrimeListFragment extends ListFragment {
-    private static final String TAG = "CrimeListFragment";
 
     private ArrayList<Crime> crimes;
 
@@ -31,7 +31,10 @@ public class CrimeListFragment extends ListFragment {
     @Override
     public void onListItemClick(ListView list, View view, int position, long id) {
         Crime crime = ((CrimeAdapter)getListAdapter()).getItem(position);
-        Log.d(TAG, crime.getTitle() + " was clicked");
+
+        Intent i = new Intent(getActivity(), CrimeActivity.class);
+        i.putExtra(CrimeFragment.EXTRA_CRIME_ID, crime.getId());
+        startActivity(i);
     }
 
     private class CrimeAdapter extends ArrayAdapter<Crime> {
