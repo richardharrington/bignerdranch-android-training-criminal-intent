@@ -31,16 +31,12 @@ public class CrimeLab {
         return null;
     }
 
+    public void addCrime(Crime crime) {
+        crimes.add(crime);
+    }
+
     private CrimeLab(Context appContext) {
         this.appContext = appContext;
         this.crimes = new ArrayList<Crime>();
-
-        // hard-coding crime objects for dev purposes
-        for (int i = 0; i < 100; i++) {
-            Crime crime = new Crime();
-            crime.setTitle("Crime #" + i);
-            crime.setSolved(i % 2 == 0); // every other one
-            crimes.add(crime);
-        }
     }
 }
