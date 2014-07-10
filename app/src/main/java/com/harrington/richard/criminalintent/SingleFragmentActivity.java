@@ -11,13 +11,17 @@ public abstract class SingleFragmentActivity extends FragmentActivity {
     public static final String TAG = "Activity lifecycle";
     protected abstract Fragment createFragment();
 
+    protected int getLayoutResId() {
+        return R.layout.activity_fragment;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         Log.d(TAG, "onCreate(Bundle)");
 
-        setContentView(R.layout.activity_fragment);
+        setContentView(getLayoutResId());
         FragmentManager fm = getSupportFragmentManager();
         Fragment fragment = fm.findFragmentById(R.id.fragmentContainer);
 
