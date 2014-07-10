@@ -9,7 +9,7 @@ public class CrimeActivity extends SingleFragmentActivity
     implements CrimeFragment.Callbacks {
 
     public void onCrimeUpdated(Crime crime) {
-        
+
     }
 
     @Override
