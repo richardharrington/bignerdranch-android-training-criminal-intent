@@ -1,9 +1,11 @@
 package com.harrington.richard.criminalintent;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -19,17 +21,32 @@ import java.util.ArrayList;
 public class CrimeListFragment extends ListFragment {
 
     private ArrayList<Crime> crimes;
+    private boolean subtitleVisible;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
+        setRetainInstance(true);
+        subtitleVisible = false;
+
         getActivity().setTitle(R.string.crimes_title);
         crimes = CrimeLab.get(getActivity()).getCrimes();
 
         CrimeAdapter adapter = new CrimeAdapter(crimes);
         setListAdapter(adapter);
 
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
+        View view = super.onCreateView(inflater, parent, savedInstanceState);
+
+        if ((Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) && subtitleVisible) {
+            getActivity().getActionBar().setSubtitle(R.string.subtitle);
+        }
+
+        return view;
     }
 
     @Override
@@ -51,6 +68,10 @@ public class CrimeListFragment extends ListFragment {
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.fragment_crime_list, menu);
+        MenuItem showSubtitle = menu.findItem(R.id.menu_item_show_subtitle);
+        if (subtitleVisible && showSubtitle != null) {
+            showSubtitle.setTitle(R.string.hide_subtitle);
+        }
     }
 
     @Override
@@ -62,6 +83,18 @@ public class CrimeListFragment extends ListFragment {
                 Intent i = new Intent(getActivity(), CrimeActivity.class);
                 i.putExtra(CrimeFragment.EXTRA_CRIME_ID, crime.getId());
                 startActivityForResult(i, 0);
+                return true;
+            case R.id.menu_item_show_subtitle:
+                if (getActivity().getActionBar().getSubtitle() == null) {
+                    getActivity().getActionBar().setSubtitle(R.string.subtitle);
+                    subtitleVisible = true;
+                    item.setTitle(R.string.hide_subtitle);
+                } else {
+                    getActivity().getActionBar().setSubtitle(null);
+                    item.setTitle(R.string.show_subtitle);
+                    subtitleVisible = false;
+                }
+
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
