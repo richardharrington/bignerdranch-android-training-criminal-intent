@@ -117,6 +117,13 @@ public class CrimeFragment extends Fragment {
     }
 
     @Override
+    public void onPause() {
+        super.onPause();
+        Log.d(TAG, "onPause()");
+        CrimeLab.get(getActivity()).saveCrimes();
+    }
+
+    @Override
     public void onInflate(Activity activity, AttributeSet attrs, Bundle savedInstanceState) {
         super.onInflate(activity, attrs, savedInstanceState);
         Log.d(TAG, "onInflate()");
@@ -125,6 +132,7 @@ public class CrimeFragment extends Fragment {
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
+        Log.d(TAG, "onAttach()");
     }
 
     @Override
@@ -161,12 +169,6 @@ public class CrimeFragment extends Fragment {
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         Log.d(TAG, "onSaveInstanceState()");
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        Log.d(TAG, "onPause()");
     }
 
     @Override
